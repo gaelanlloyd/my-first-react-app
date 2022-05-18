@@ -1,14 +1,8 @@
-// To make your first component, you need:
-//
-// 1. Import react
-// 2. A function
-//
-
 // This is an ES6 module that will be imported for use
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-// CSS
+// Load CSS
 import './index.css'
 
 var books = [
@@ -47,7 +41,7 @@ var books = [
     "img": "https://m.media-amazon.com/images/I/51C6pWeu6NL.jpg",
     "sales": "496"
   }
-]
+];
 
 // React module function names must be capitalized
 // This is a stateless functional component
@@ -58,7 +52,14 @@ function BookList(props) {
   let bookList = [];
 
   props.books.forEach((book) => {
-    bookList.push(<Book key={book.key} title={book.title} author={book.author} img={book.img} sales={book.sales} />);
+    bookList.push(
+      <Book
+        key={book.key}
+        title={book.title}
+        author={book.author}
+        img={book.img}
+        sales={book.sales}
+      />);
   });
 
   // Remember, when returning something there must be a root node.
@@ -94,7 +95,14 @@ function Book(props) {
 function Image(props) {
   let alt = "Book cover for '" + props.title + "'";
   return <div className='imgContainer'>
-    <img src={props.img} alt={alt} title={alt} style={{height: '284px', maxWidth: '220px'}} />
+    <img
+      src={props.img}
+      alt={alt}
+      title={alt}
+      style={{
+        height: '284px',
+        maxWidth: '220px'}}
+    />
   </div>
 }
 
