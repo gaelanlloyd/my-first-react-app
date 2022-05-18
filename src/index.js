@@ -5,41 +5,41 @@ import ReactDOM from 'react-dom/client';
 // Load CSS
 import './index.css'
 
-var books = [
+const books = [
   {
-    "key": "dr-seuss-oh-the-places-youll-go",
-    "title": "Oh, the Places You'll Go!",
-    "author": "Dr. Seuss",
-    "img": "https://images-na.ssl-images-amazon.com/images/I/51x8pmqjY0L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-    "sales": "12675"
+    slug: "dr-seuss-oh-the-places-youll-go",
+    title: "Oh, the Places You'll Go!",
+    author: "Dr. Seuss",
+    bookImageSrc: "https://images-na.ssl-images-amazon.com/images/I/51x8pmqjY0L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
+    sales: "12675"
   },
   {
-    "key": "richard-dawkins-the-god-delusion",
-    "title": "The God Delusion",
-    "author": "Richard Dawkins",
-    "img": "https://m.media-amazon.com/images/I/4116f7PEq8L._SY346_.jpg",
-    "sales": "9473"
+    slug: "richard-dawkins-the-god-delusion",
+    title: "The God Delusion",
+    author: "Richard Dawkins",
+    bookImageSrc: "https://m.media-amazon.com/images/I/4116f7PEq8L._SY346_.jpg",
+    sales: "9473"
   },
   {
-    "key": "michael-watkins-the-first-90-days",
-    "title": "The First 90 Days",
-    "author": "Michael D. Watkins",
-    "img": "https://images-na.ssl-images-amazon.com/images/I/51suqb0FigL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
-    "sales": "6731"
+    slug: "michael-watkins-the-first-90-days",
+    title: "The First 90 Days",
+    author: "Michael D. Watkins",
+    bookImageSrc: "https://images-na.ssl-images-amazon.com/images/I/51suqb0FigL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+    sales: "6731"
   },
   {
-    "key": "harlan-ellison-vic-and-blood",
-    "title": "Vic and Blood",
-    "author": "Harlan Ellison",
-    "img": "https://images-na.ssl-images-amazon.com/images/I/61bHjXIjH3L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-    "sales": "614"
+    slug: "harlan-ellison-vic-and-blood",
+    title: "Vic and Blood",
+    author: "Harlan Ellison",
+    bookImageSrc: "https://images-na.ssl-images-amazon.com/images/I/61bHjXIjH3L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
+    sales: "614"
   },
   {
-    "key": "rob-colton-timber-pack-chronicles",
-    "title": "Timber Pack Chronicles",
-    "author": "Rob Colton",
-    "img": "https://m.media-amazon.com/images/I/51C6pWeu6NL.jpg",
-    "sales": "496"
+    slug: "rob-colton-timber-pack-chronicles",
+    title: "Timber Pack Chronicles",
+    author: "Rob Colton",
+    bookImageSrc: "https://m.media-amazon.com/images/I/51C6pWeu6NL.jpg",
+    sales: "496"
   }
 ];
 
@@ -56,25 +56,7 @@ function BookList(props) {
 
       {/* Map is like forEach(). Use it to iterate over the array objects */}
       { props.books.map((book) => {
-
-        // Destructure the incoming props into their own variables
-
-        const {
-          key,
-          title,
-          author,
-          img,
-          sales
-        } = book;
-
-        return <Book
-          key={key}
-          title={title}
-          author={author}
-          img={img}
-          sales={sales}
-        />
-
+        return <Book key={book.slug} book={book} />
     })}
     </section>
     </div>
@@ -88,14 +70,14 @@ function Book(props) {
   const {
     title,
     author,
-    img,
+    bookImageSrc,
     sales
-  } = props;
+  } = props.book;
 
   return <article className='book'>
 
     {/* Return content using the output of a function/component */}
-    <Image img={img} title={title} />
+    <Image bookImageSrc={bookImageSrc} title={title} />
     
     {/* Echo content simply */}
     <h3>{title}</h3>
@@ -112,13 +94,15 @@ function Image(props) {
 
   const {
     title,
-    img
+    bookImageSrc
   } = props;
 
-  let alt = "Book cover for '" + title + "'";
-  return <div className='imgContainer'>
+  const alt = "Book cover for ${title}";
+
+  return (
+  <div className='imgContainer'>
     <img
-      src={img}
+      src={bookImageSrc}
       alt={alt}
       title={alt}
       style={{
@@ -126,10 +110,12 @@ function Image(props) {
         maxWidth: '220px'}}
     />
   </div>
+  );
+
 }
 
 function Sold(props) {
-  let sold = new Intl.NumberFormat().format(props.sales);
+  const sold = new Intl.NumberFormat().format(props.sales);
   return <p className='small'>{sold} sold</p>
 }
 
