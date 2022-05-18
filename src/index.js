@@ -48,17 +48,31 @@ var books = [
 // They must always return JSX, even if it's just empty HTML
 
 function BookList(props) {
-
+  
   let bookList = [];
-
+  
   props.books.forEach((book) => {
+    
+    // Destructure the incoming props into their own variables
+    // so you don't have to refer to them as props.xxx
+    
+    // This is similar to WP's extract(shortcode_atts()) feature
+
+    const {
+      key,
+      title,
+      author,
+      img,
+      sales
+    } = book;
+  
     bookList.push(
       <Book
-        key={book.key}
-        title={book.title}
-        author={book.author}
-        img={book.img}
-        sales={book.sales}
+        key={key}
+        title={title}
+        author={author}
+        img={img}
+        sales={sales}
       />);
   });
 
@@ -78,25 +92,42 @@ function BookList(props) {
 
 function Book(props) {
 
+  // Destructure the incoming props into their own variables
+
+  const {
+    title,
+    author,
+    img,
+    sales
+  } = props;
+
   return <article className='book'>
 
     {/* Return content using the output of a function/component */}
-    <Image img={props.img} title={props.title} />
+    <Image img={img} title={title} />
     
     {/* Echo content simply */}
-    <h3>{props.title}</h3>
-    <p>{props.author}</p>
+    <h3>{title}</h3>
+    <p>{author}</p>
 
-    <Sold sales={props.sales} />
+    <Sold sales={sales} />
 
   </article>;
 }
 
 function Image(props) {
-  let alt = "Book cover for '" + props.title + "'";
+
+  // Destructure the incoming props into their own variables
+
+  const {
+    title,
+    img
+  } = props;
+
+  let alt = "Book cover for '" + title + "'";
   return <div className='imgContainer'>
     <img
-      src={props.img}
+      src={img}
       alt={alt}
       title={alt}
       style={{
@@ -121,3 +152,4 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BookList books={books} />
 );
+
