@@ -48,46 +48,37 @@ var books = [
 // They must always return JSX, even if it's just empty HTML
 
 function BookList(props) {
-  
-  let bookList = [];
-  
-  props.books.forEach((book) => {
-    
-    // Destructure the incoming props into their own variables
-    // so you don't have to refer to them as props.xxx
-    
-    // This is similar to WP's extract(shortcode_atts()) feature
-
-    const {
-      key,
-      title,
-      author,
-      img,
-      sales
-    } = book;
-  
-    bookList.push(
-      <Book
-        key={key}
-        title={title}
-        author={author}
-        img={img}
-        sales={sales}
-      />);
-  });
-
-  // Remember, when returning something there must be a root node.
-  // You can't return multiple sibling tags, there must be a single parent.
-
-  return <div className='container'>
-
+  return (
+    <div className='container'>
     <h1 className='title'>Gaelan's book store</h1>
 
     <section className='booklist'>
-      {bookList}
-    </section>
 
+      {/* Map is like forEach(). Use it to iterate over the array objects */}
+      { props.books.map((book) => {
+
+        // Destructure the incoming props into their own variables
+
+        const {
+          key,
+          title,
+          author,
+          img,
+          sales
+        } = book;
+
+        return <Book
+          key={key}
+          title={title}
+          author={author}
+          img={img}
+          sales={sales}
+        />
+
+    })}
+    </section>
     </div>
+  )
 }
 
 function Book(props) {
