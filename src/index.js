@@ -10,35 +10,35 @@ const books = [
     slug: "dr-seuss-oh-the-places-youll-go",
     title: "Oh, the Places You'll Go!",
     author: "Dr. Seuss",
-    bookImageSrc: "https://images-na.ssl-images-amazon.com/images/I/51x8pmqjY0L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
+    image_src: "https://images-na.ssl-images-amazon.com/images/I/51x8pmqjY0L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
     sales: "12675"
   },
   {
     slug: "richard-dawkins-the-god-delusion",
     title: "The God Delusion",
     author: "Richard Dawkins",
-    bookImageSrc: "https://m.media-amazon.com/images/I/4116f7PEq8L._SY346_.jpg",
+    image_src: "https://m.media-amazon.com/images/I/4116f7PEq8L._SY346_.jpg",
     sales: "9473"
   },
   {
     slug: "michael-watkins-the-first-90-days",
     title: "The First 90 Days",
     author: "Michael D. Watkins",
-    bookImageSrc: "https://images-na.ssl-images-amazon.com/images/I/51suqb0FigL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+    image_src: "https://images-na.ssl-images-amazon.com/images/I/51suqb0FigL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
     sales: "6731"
   },
   {
     slug: "harlan-ellison-vic-and-blood",
     title: "Vic and Blood",
     author: "Harlan Ellison",
-    bookImageSrc: "https://images-na.ssl-images-amazon.com/images/I/61bHjXIjH3L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
+    image_src: "https://images-na.ssl-images-amazon.com/images/I/61bHjXIjH3L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
     sales: "614"
   },
   {
     slug: "rob-colton-timber-pack-chronicles",
     title: "Timber Pack Chronicles",
     author: "Rob Colton",
-    bookImageSrc: "https://m.media-amazon.com/images/I/51C6pWeu6NL.jpg",
+    image_src: "https://m.media-amazon.com/images/I/51C6pWeu6NL.jpg",
     sales: "496"
   }
 ];
@@ -70,14 +70,14 @@ function Book(props) {
   const {
     title,
     author,
-    bookImageSrc,
+    image_src,
     sales
   } = props.book;
 
   return <article className='book'>
 
     {/* Return content using the output of a function/component */}
-    <Image bookImageSrc={bookImageSrc} title={title} />
+    <BookImage src={image_src} title={title} />
     
     {/* Echo content simply */}
     <h3>{title}</h3>
@@ -88,21 +88,21 @@ function Book(props) {
   </article>;
 }
 
-function Image(props) {
+function BookImage(props) {
 
   // Destructure the incoming props into their own variables
 
   const {
-    title,
-    bookImageSrc
+    src,
+    title
   } = props;
 
-  const alt = "Book cover for ${title}";
+  const alt = `Book cover for '${title}'`;
 
   return (
   <div className='imgContainer'>
     <img
-      src={bookImageSrc}
+      src={src}
       alt={alt}
       title={alt}
       style={{
